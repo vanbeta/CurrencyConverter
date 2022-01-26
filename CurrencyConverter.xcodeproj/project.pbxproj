@@ -13,6 +13,10 @@
 		7D9297DC279EE4DD00697523 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D9297DA279EE4DD00697523 /* Main.storyboard */; };
 		7D9297DE279EE4E000697523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D9297DD279EE4E000697523 /* Assets.xcassets */; };
 		7D9297E1279EE4E000697523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D9297DF279EE4E000697523 /* LaunchScreen.storyboard */; };
+		7D9297EC279EEAD800697523 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9297EB279EEAD800697523 /* Presenter.swift */; };
+		7DB57D41279FE2F60056414F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB57D40279FE2F60056414F /* Country.swift */; };
+		7DB57D43279FEDA30056414F /* ViewOutputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB57D42279FEDA30056414F /* ViewOutputDelegate.swift */; };
+		7DB57D45279FEEA70056414F /* ViewInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB57D44279FEEA70056414F /* ViewInputDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		7D9297DD279EE4E000697523 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D9297E0279EE4E000697523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D9297E2279EE4E000697523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D9297EB279EEAD800697523 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		7DB57D40279FE2F60056414F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		7DB57D42279FEDA30056414F /* ViewOutputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOutputDelegate.swift; sourceTree = "<group>"; };
+		7DB57D44279FEEA70056414F /* ViewInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInputDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +64,43 @@
 		7D9297D3279EE4DD00697523 /* CurrencyConverter */ = {
 			isa = PBXGroup;
 			children = (
+				7D9297EA279EEA8000697523 /* Presenters */,
+				7D9297E9279EEA5E00697523 /* Models */,
+				7D9297E8279EEA4200697523 /* Views */,
 				7D9297D4279EE4DD00697523 /* AppDelegate.swift */,
 				7D9297D6279EE4DD00697523 /* SceneDelegate.swift */,
-				7D9297D8279EE4DD00697523 /* ViewController.swift */,
 				7D9297DA279EE4DD00697523 /* Main.storyboard */,
 				7D9297DD279EE4E000697523 /* Assets.xcassets */,
 				7D9297DF279EE4E000697523 /* LaunchScreen.storyboard */,
 				7D9297E2279EE4E000697523 /* Info.plist */,
 			);
 			path = CurrencyConverter;
+			sourceTree = "<group>";
+		};
+		7D9297E8279EEA4200697523 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7D9297D8279EE4DD00697523 /* ViewController.swift */,
+				7DB57D42279FEDA30056414F /* ViewOutputDelegate.swift */,
+				7DB57D44279FEEA70056414F /* ViewInputDelegate.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7D9297E9279EEA5E00697523 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7DB57D40279FE2F60056414F /* Country.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7D9297EA279EEA8000697523 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				7D9297EB279EEAD800697523 /* Presenter.swift */,
+			);
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,7 +176,11 @@
 			files = (
 				7D9297D9279EE4DD00697523 /* ViewController.swift in Sources */,
 				7D9297D5279EE4DD00697523 /* AppDelegate.swift in Sources */,
+				7DB57D43279FEDA30056414F /* ViewOutputDelegate.swift in Sources */,
+				7D9297EC279EEAD800697523 /* Presenter.swift in Sources */,
+				7DB57D41279FE2F60056414F /* Country.swift in Sources */,
 				7D9297D7279EE4DD00697523 /* SceneDelegate.swift in Sources */,
+				7DB57D45279FEEA70056414F /* ViewInputDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
