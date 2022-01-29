@@ -7,36 +7,55 @@
 
 import Foundation
 
-struct Country: Codable {
-    var currencyName: String
-    var currencySymbol: String
-    var id: String
+struct Country {
+    var currencyName: String?
+    var currencySymbol: String?
+    var id: String?
 }
 
 class Countries {
-    var countries: [Country] = []
     
-    func updateCountries() {
-//        if let url = URL(string: "https://api.myjson.com/bins/yfua8") {
-//           // the url
-//        }
-//
-        let url = URL(string: "https://free.currconv.com/api/v7/currencies?apiKey=***REMOVED***")!
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            //            guard let data = data else { return }
-            //            print(String(data: data, encoding: .utf8)!)
-            //
-            if let data = data {
-                do {
-                    let res = try JSONDecoder().decode(Country.self, from: data)
-     
-                } catch let error {
-                    print(error)
+    private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=***REMOVED***"
+    
+    private var cachedCountries: [Country] = []
+    
+    func getData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
+        loadData(onResultLoaded)
+    }
+    
+    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
+        if !cachedCountries.isEmpty {
+            onResultLoaded(cachedCountries)
+        } else {
+            let url = URL(string: apiUrl)!
+            let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
+                parseJson(data, onResultLoaded)
+            }
+            task.resume()
+        }
+    }
+    
+    private func parseJson(_ data: Data?, _ onResultLoaded: (_ countries: [Country]) -> Void) {
+        if let data = data {
+            var countries: [Country] = []
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let dictionary = json as? [String: Any] {
+                if let nestedDictionary = dictionary["results"] as? [String: Any] {
+                    for (_, value) in nestedDictionary {
+                        if let result = value as? [String: String] {
+                            let country = Country(currencyName: result["currencyName"],
+                                                  currencySymbol: result["currencySymbol"],
+                                                  id: result["id"])
+                            countries.append(country)
+                        }
+                    }
                 }
             }
+            cachedCountries = countries
+            onResultLoaded(countries)
+        } else {
+            print("Что-то пошло не так!")
         }
-        task.resume()
     }
 }
 
