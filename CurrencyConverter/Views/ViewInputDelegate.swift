@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ViewInputDelegate: AnyObject {
-    
+    func setupData(data: ([Country]))
 }

@@ -14,7 +14,6 @@ struct Country {
 }
 
 class Countries {
-    
     static var apiKey: String? {
         return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
     }

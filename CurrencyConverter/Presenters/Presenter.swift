@@ -19,7 +19,7 @@ class Presenter {
 extension Presenter: ViewOutputDelegate {
     func getData() {
         data.getData() { countries in
-            print(countries.count)
+            self.viewInputDelegate?.setupData(data: countries)
         }
     }
 }
