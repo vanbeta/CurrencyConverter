@@ -16,37 +16,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="heN-Bo-EGu">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="heN-Bo-EGu">
                                 <rect key="frame" x="95" y="98" width="200" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-et-JFo">
-                                <rect key="frame" x="95" y="212" width="200" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YXe-et-JFo">
+                                <rect key="frame" x="95" y="216" width="200" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kr6-yR-Sax">
-                                <rect key="frame" x="95" y="265" width="200" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kr6-yR-Sax">
+                                <rect key="frame" x="95" y="275" width="200" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D6T-9Q-XSl">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D6T-9Q-XSl">
                                 <rect key="frame" x="95" y="157" width="200" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="leading" secondItem="heN-Bo-EGu" secondAttribute="leading" id="4np-cx-dKZ"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="top" secondItem="D6T-9Q-XSl" secondAttribute="bottom" constant="25" id="IYn-US-Ens"/>
+                            <constraint firstItem="heN-Bo-EGu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Icg-UW-jGJ"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="trailing" secondItem="kr6-yR-Sax" secondAttribute="trailing" id="PQR-XH-Qd9"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="leading" secondItem="D6T-9Q-XSl" secondAttribute="leading" id="YzJ-iJ-YOp"/>
+                            <constraint firstItem="D6T-9Q-XSl" firstAttribute="top" secondItem="heN-Bo-EGu" secondAttribute="bottom" constant="25" id="c6L-uO-sQC"/>
+                            <constraint firstItem="heN-Bo-EGu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="54" id="fOH-RP-Pxj"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="leading" secondItem="kr6-yR-Sax" secondAttribute="leading" id="g8y-RW-xqe"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="95" id="jG8-96-nyF"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="trailing" secondItem="D6T-9Q-XSl" secondAttribute="trailing" id="rkV-jR-31d"/>
+                            <constraint firstItem="kr6-yR-Sax" firstAttribute="top" secondItem="YXe-et-JFo" secondAttribute="bottom" constant="25" id="wMn-UX-OZV"/>
+                            <constraint firstItem="YXe-et-JFo" firstAttribute="trailing" secondItem="heN-Bo-EGu" secondAttribute="trailing" id="wgE-Hk-ZjH"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="fromTextField" destination="heN-Bo-EGu" id="plv-i2-Q6R"/>
-                        <outlet property="toTextField" destination="YXe-et-JFo" id="6ef-iq-Dei"/>
+                        <outlet property="fromCountryTextField" destination="heN-Bo-EGu" id="hWy-HR-Yon"/>
+                        <outlet property="fromValueTextField" destination="D6T-9Q-XSl" id="e8v-Le-lRz"/>
+                        <outlet property="toCountryTextField" destination="YXe-et-JFo" id="6vW-qp-tOA"/>
+                        <outlet property="toValueTextField" destination="kr6-yR-Sax" id="uVG-zJ-Q1a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

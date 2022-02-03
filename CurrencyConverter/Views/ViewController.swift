@@ -12,8 +12,10 @@ class ViewController: UIViewController,
                       UIPickerViewDataSource,
                       UITextFieldDelegate {
     
-    @IBOutlet weak var fromTextField: UITextField!
-    @IBOutlet weak var toTextField: UITextField!
+    @IBOutlet weak var fromCountryTextField: UITextField!
+    @IBOutlet weak var toCountryTextField: UITextField!
+    @IBOutlet weak var fromValueTextField: UITextField!
+    @IBOutlet weak var toValueTextField: UITextField!
     
     private let presenter = Presenter()
     weak private var viewOutputDelegate: ViewOutputDelegate?
@@ -28,8 +30,21 @@ class ViewController: UIViewController,
         
         self.viewOutputDelegate?.getData()
         
-        createPickerView()
-        dismissPickerView()
+        settingCountryTextField(textField: fromCountryTextField)
+        settingCountryTextField(textField: toCountryTextField)
+        
+        settingValueTextField(textField: fromValueTextField)
+        settingValueTextField(textField: toValueTextField)
+    }
+    
+    func settingValueTextField(textField: UITextField) {
+        textField.textAlignment = .center
+    }
+    
+    func settingCountryTextField(textField: UITextField) {
+        textField.textAlignment = .center
+        createPickerView(for: textField)
+        dismissPickerView(for: textField)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -46,22 +61,28 @@ class ViewController: UIViewController,
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCountry = countryList[row].currencyName
-        fromTextField.text = selectedCountry
+        
+        if (pickerView == fromCountryTextField.inputView) {
+            fromCountryTextField.text = selectedCountry
+        }
+        if (pickerView == toCountryTextField.inputView) {
+            toCountryTextField.text = selectedCountry
+        }
     }
     
-    func createPickerView() {
+    func createPickerView(for textField: UITextField) {
         let pickerView = UIPickerView()
         pickerView.delegate = self
-        fromTextField.inputView = pickerView
+        textField.inputView = pickerView
     }
     
-    func dismissPickerView() {
+    func dismissPickerView(for textField: UITextField) {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
         toolBar.setItems([button], animated: true)
         toolBar.isUserInteractionEnabled = true
-        fromTextField.inputAccessoryView = toolBar
+        textField.inputAccessoryView = toolBar
     }
     
     @objc func action() {
