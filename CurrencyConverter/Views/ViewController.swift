@@ -7,10 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,
-                      UIPickerViewDelegate,
-                      UIPickerViewDataSource,
-                      UITextFieldDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var fromCountryTextField: UITextField!
     @IBOutlet weak var toCountryTextField: UITextField!
@@ -38,7 +35,9 @@ class ViewController: UIViewController,
     }
     
     func settingValueTextField(textField: UITextField) {
+        textField.delegate = self
         textField.textAlignment = .center
+        textField.keyboardType = .numberPad
     }
     
     func settingCountryTextField(textField: UITextField) {
@@ -46,7 +45,17 @@ class ViewController: UIViewController,
         createPickerView(for: textField)
         dismissPickerView(for: textField)
     }
-    
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let invalidCharacters = CharacterSet(charactersIn: "0123456789").inverted
+        return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+    }
+}
+
+extension ViewController: UIPickerViewDelegate,
+                          UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
