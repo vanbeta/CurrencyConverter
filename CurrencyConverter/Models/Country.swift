@@ -8,34 +8,46 @@
 import Foundation
 
 struct Country {
+    
+    
     var currencyName: String?
     var currencySymbol: String?
     var id: String?
 }
 
 class Countries {
+    
+    
     static var apiKey: String? {
         return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
     }
+    
+//     https://free.currconv.com/api/v7/convert?q= + (USD_PHP) + ,+ (PHP_USD) + &compact=ultra&apiKey=***REMOVED***
     
     private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=" + (apiKey ?? "")
     
     private var cachedCountries: [Country] = []
     
     func getData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
-        loadData(onResultLoaded)
-    }
-    
-    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
         if !cachedCountries.isEmpty {
             onResultLoaded(cachedCountries)
         } else {
-            let url = URL(string: apiUrl)!
+            loadData(onResultLoaded)
+        }
+    }
+    
+    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
+        // вынести логику и хранить все в модели
+        guard let url = URL(string: apiUrl) else {
+            fatalError("error")
+        }
             let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
-                parseJson(data, onResultLoaded)
+                guard let data = data, error == nil else { fatalError("error") }
+                DispatchQueue.main.async {
+                    parseJson(data, onResultLoaded)
+                }
             }
             task.resume()
-        }
     }
     
     private func parseJson(_ data: Data?, _ onResultLoaded: (_ countries: [Country]) -> Void) {
@@ -57,6 +69,10 @@ class Countries {
             cachedCountries = countries
             onResultLoaded(countries)
         }
+    }
+    
+    func getRate(from: String, to: String) {
+        print("(" + from + "_" + to + ")")
     }
 }
 

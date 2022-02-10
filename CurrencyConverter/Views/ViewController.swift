@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
     @IBOutlet weak var fromCountryTextField: UITextField!
     @IBOutlet weak var toCountryTextField: UITextField!
     @IBOutlet weak var fromValueTextField: UITextField!
@@ -32,6 +33,9 @@ class ViewController: UIViewController {
         
         settingValueTextField(textField: fromValueTextField)
         settingValueTextField(textField: toValueTextField)
+        
+        fromValueTextField.addTarget(self, action: #selector(enterNumberFrom), for: UIControl.Event.editingChanged)
+        toValueTextField.addTarget(self, action: #selector(enterNumberTo), for: UIControl.Event.editingChanged)
     }
     
     func settingValueTextField(textField: UITextField) {
@@ -45,9 +49,20 @@ class ViewController: UIViewController {
         createPickerView(for: textField)
         dismissPickerView(for: textField)
     }
+    
+    @objc func enterNumberFrom() {
+        print("bingo")
+        self.viewOutputDelegate?.enterFromValue()
+    }
+    
+    @objc func enterNumberTo() {
+        
+    }
 }
 
 extension ViewController: UITextFieldDelegate {
+    
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let invalidCharacters = CharacterSet(charactersIn: "0123456789").inverted
         return (string.rangeOfCharacter(from: invalidCharacters) == nil)
@@ -56,6 +71,8 @@ extension ViewController: UITextFieldDelegate {
 
 extension ViewController: UIPickerViewDelegate,
                           UIPickerViewDataSource {
+   
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -100,9 +117,21 @@ extension ViewController: UIPickerViewDelegate,
 }
 
 extension ViewController: ViewInputDelegate {
+
+
     func setupData(data: ([Country])) {
         self.countryList = data
         self.countryList.sort(by: {$0.currencyName! < $1.currencyName!}) // !!!
+    }
+    
+    func getCountriesForCurrencyExchange() -> (from: String, to: String) {
+        let currentFromCountry = countryList.first { $0.currencyName == fromCountryTextField.text }
+        let currentToCountry = countryList.first { $0.currencyName == toCountryTextField.text }
+        return(currentFromCountry?.id ?? "", currentToCountry?.id ?? "")
+    }
+    
+    func getDataForCurrencyExchange() -> (from: Int, to: Int) {
+        return(from: Int(fromValueTextField.text!) ?? 0, to: Int(toValueTextField.text!) ?? 0)
     }
 }
 
