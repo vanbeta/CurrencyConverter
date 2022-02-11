@@ -51,7 +51,6 @@ class ViewController: UIViewController {
     }
     
     @objc func enterNumberFrom() {
-        print("bingo")
         self.viewOutputDelegate?.enterFromValue()
     }
     

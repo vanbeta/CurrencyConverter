@@ -30,7 +30,7 @@ extension Presenter: ViewOutputDelegate {
     
     func enterFromValue() {
         let counries = self.viewInputDelegate?.getCountriesForCurrencyExchange()
-//        guard (counries!.from.isEmpty || counries!.to.isEmpty) else { return } !!!
+        guard !(counries!.from.isEmpty || counries!.to.isEmpty) else { return }
         
         data.getRate(from: counries!.from, to: counries!.to)
         

@@ -22,8 +22,6 @@ class Countries {
         return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
     }
     
-//     https://free.currconv.com/api/v7/convert?q= + (USD_PHP) + ,+ (PHP_USD) + &compact=ultra&apiKey=***REMOVED***
-    
     private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=" + (apiKey ?? "")
     
     private var cachedCountries: [Country] = []
@@ -41,16 +39,14 @@ class Countries {
         guard let url = URL(string: apiUrl) else {
             fatalError("error")
         }
-            let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
-                guard let data = data, error == nil else { fatalError("error") }
-                DispatchQueue.main.async {
-                    parseJson(data, onResultLoaded)
-                }
-            }
-            task.resume()
+        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
+            guard let data = data, error == nil else { fatalError("error") }
+            parseJsonCountry(data, onResultLoaded)
+        }
+        task.resume()
     }
     
-    private func parseJson(_ data: Data?, _ onResultLoaded: (_ countries: [Country]) -> Void) {
+    private func parseJsonCountry(_ data: Data?, _ onResultLoaded: (_ countries: [Country]) -> Void) {
         if let data = data {
             var countries: [Country] = []
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
@@ -72,7 +68,31 @@ class Countries {
     }
     
     func getRate(from: String, to: String) {
-        print("(" + from + "_" + to + ")")
+        let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=" + from + "_" + to + "," + to + "_" + from + "&compact=ultra&apiKey=" + (Countries.apiKey ?? "")
+        
+        guard let url = URL(string: apiUrlRate) else {
+            fatalError("error")
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
+            guard let data = data, error == nil else { fatalError("error") }
+            parseJsonRate(data)
+        }
+        task.resume()
+    }
+    
+    func parseJsonRate(_ data: Data?) {
+        
+//        {"ALL_ARS":0.994264,"ARS_ALL":1.005769}
+        
+        if let data = data {
+            var countries: (String, String)
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let dictionary = json as? [String: Any] {
+                print(dictionary.keys)
+                print(dictionary.values)
+            }
+        }
     }
 }
 
