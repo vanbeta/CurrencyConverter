@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var fromCountryTextField: UITextField!
     @IBOutlet weak var toCountryTextField: UITextField!
-    @IBOutlet weak var fromValueTextField: UITextField!
-    @IBOutlet weak var toValueTextField: UITextField!
+    @IBOutlet weak var _fromValueTextField: UITextField!
+    @IBOutlet weak var _toValueTextField: UITextField!
     
     private let presenter = Presenter()
     weak private var viewOutputDelegate: ViewOutputDelegate?
@@ -31,11 +31,11 @@ class ViewController: UIViewController {
         settingCountryTextField(textField: fromCountryTextField)
         settingCountryTextField(textField: toCountryTextField)
         
-        settingValueTextField(textField: fromValueTextField)
-        settingValueTextField(textField: toValueTextField)
+        settingValueTextField(textField: _fromValueTextField)
+        settingValueTextField(textField: _toValueTextField)
         
-        fromValueTextField.addTarget(self, action: #selector(enterNumberFrom), for: UIControl.Event.editingChanged)
-        toValueTextField.addTarget(self, action: #selector(enterNumberTo), for: UIControl.Event.editingChanged)
+        _fromValueTextField.addTarget(self, action: #selector(enterNumberFrom), for: UIControl.Event.editingChanged)
+        _toValueTextField.addTarget(self, action: #selector(enterNumberTo), for: UIControl.Event.editingChanged)
     }
     
     func settingValueTextField(textField: UITextField) {
@@ -130,7 +130,23 @@ extension ViewController: ViewInputDelegate {
     }
     
     func getDataForCurrencyExchange() -> (from: Int, to: Int) {
-        return(from: Int(fromValueTextField.text!) ?? 0, to: Int(toValueTextField.text!) ?? 0)
+        return(from: Int(_fromValueTextField.text!) ?? 0, to: Int(_toValueTextField.text!) ?? 0)
+    }
+    
+    func getFromValueTextField() -> String {
+        return _fromValueTextField.text ?? ""
+    }
+    
+    func setFromValueTextField(value: Double) {
+        _fromValueTextField.text = String(value)
+    }
+    
+    func getToValueTextField() -> String {
+        return _toValueTextField.text ?? ""
+    }
+    
+    func setToValueTextField(value: Double) {
+        self._toValueTextField.text = String(value)
     }
 }
 

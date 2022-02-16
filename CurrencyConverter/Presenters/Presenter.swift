@@ -17,6 +17,10 @@ class Presenter {
     func setViewInputDelegate(viewInputDelegate: ViewInputDelegate?) {
          self.viewInputDelegate = viewInputDelegate
      }
+    
+    func calculateRate(rate: Double, value: Double) -> (Double) {
+        return value * rate
+    }
 }
 
 extension Presenter: ViewOutputDelegate {
@@ -32,10 +36,13 @@ extension Presenter: ViewOutputDelegate {
         let counries = self.viewInputDelegate?.getCountriesForCurrencyExchange()
         guard !(counries!.from.isEmpty || counries!.to.isEmpty) else { return }
         
-        data.getRate(from: counries!.from, to: counries!.to)
-        
-//        print(counries.from + " + " + counries.to)
-//        self.viewInputDelegate?.getDataForCurrencyExchange()
+        self.data.getRate(from: counries!.from, to: counries!.to) { countries in
+            DispatchQueue.main.async {
+                let rate = countries[counries!.from + "_" + counries!.to] ?? 0
+                let calculateResult: Double = self.calculateRate(rate: rate, value: Double(self.viewInputDelegate?.getFromValueTextField() ?? "") ?? 0)
+                self.viewInputDelegate?.setToValueTextField(value: calculateResult)
+            }
+        }
     }
 }
 

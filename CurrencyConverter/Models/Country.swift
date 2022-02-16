@@ -26,6 +26,8 @@ class Countries {
     
     private var cachedCountries: [Country] = []
     
+    private var cachedRate: [String: Double] = [:]
+    
     func getData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
         if !cachedCountries.isEmpty {
             onResultLoaded(cachedCountries)
@@ -35,7 +37,6 @@ class Countries {
     }
     
     private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
-        // вынести логику и хранить все в модели
         guard let url = URL(string: apiUrl) else {
             fatalError("error")
         }
@@ -67,30 +68,32 @@ class Countries {
         }
     }
     
-    func getRate(from: String, to: String) {
-        let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=" + from + "_" + to + "," + to + "_" + from + "&compact=ultra&apiKey=" + (Countries.apiKey ?? "")
-        
-        guard let url = URL(string: apiUrlRate) else {
-            fatalError("error")
+    func getRate(from: String, to: String, _ onResultLoaded: @escaping (_ countries: [String: Double]) -> Void) {
+        if cachedRate.contains(where: { $0.key == from + "_" + to }) {
+            onResultLoaded(cachedRate)
+        } else {
+            guard !from.isEmpty || !to.isEmpty else { return }
+                
+            let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=" + from + "_" + to + "," + to + "_" + from + "&compact=ultra&apiKey=" + (Countries.apiKey ?? "")
+
+            guard let url = URL(string: apiUrlRate) else {
+                fatalError("error")
+            }
+
+            let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
+                guard let data = data, error == nil else { fatalError("error") }
+                parseJsonRate(data, onResultLoaded)
+            }
+            task.resume()
         }
-        
-        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
-            guard let data = data, error == nil else { fatalError("error") }
-            parseJsonRate(data)
-        }
-        task.resume()
     }
     
-    func parseJsonRate(_ data: Data?) {
-        
-//        {"ALL_ARS":0.994264,"ARS_ALL":1.005769}
-        
+    func parseJsonRate(_ data: Data?, _ onResultLoaded: @escaping (_ countries: [String: Double]) -> Void) {
         if let data = data {
-            var countries: (String, String)
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let dictionary = json as? [String: Any] {
-                print(dictionary.keys)
-                print(dictionary.values)
+            if let dictionary = json as? [String: Double] {
+                cachedRate = dictionary
+                onResultLoaded(cachedRate)
             }
         }
     }

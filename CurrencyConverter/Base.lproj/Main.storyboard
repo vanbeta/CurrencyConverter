@@ -35,9 +35,6 @@
                                 <rect key="frame" x="95" y="157" width="200" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="4k5-80-gZd"/>
-                                </connections>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -58,10 +55,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="fromCountryTextField" destination="heN-Bo-EGu" id="hWy-HR-Yon"/>
-                        <outlet property="fromValueTextField" destination="D6T-9Q-XSl" id="e8v-Le-lRz"/>
+                        <outlet property="_fromValueTextField" destination="D6T-9Q-XSl" id="rGz-9Y-I2H"/>
+                        <outlet property="_toValueTextField" destination="kr6-yR-Sax" id="EjH-hx-qid"/>
+                        <outlet property="fromCountryTextField" destination="heN-Bo-EGu" id="acv-cu-3ef"/>
                         <outlet property="toCountryTextField" destination="YXe-et-JFo" id="6vW-qp-tOA"/>
-                        <outlet property="toValueTextField" destination="kr6-yR-Sax" id="uVG-zJ-Q1a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

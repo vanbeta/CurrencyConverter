@@ -13,4 +13,8 @@ protocol ViewInputDelegate: AnyObject {
     func setupData(data: ([Country]))
     func getCountriesForCurrencyExchange() -> (from: String, to: String)
     func getDataForCurrencyExchange() -> (from: Int, to: Int)
+    func getFromValueTextField() -> String
+    func setFromValueTextField(value: Double)
+    func getToValueTextField() -> String
+    func setToValueTextField(value: Double)
 }
