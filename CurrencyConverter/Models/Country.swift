@@ -22,7 +22,7 @@ class Countries {
         return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
     }
     
-    private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=" + (apiKey ?? "")
+    private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=\(apiKey ?? "")"
     
     private var cachedCountries: [Country] = []
     
@@ -69,12 +69,12 @@ class Countries {
     }
     
     func getRate(from: String, to: String, _ onResultLoaded: @escaping (_ countries: [String: Double]) -> Void) {
-        if cachedRate.contains(where: { $0.key == from + "_" + to }) {
+        if cachedRate.contains(where: { $0.key == "\(from) _ \(to)" }) {
             onResultLoaded(cachedRate)
         } else {
             guard !from.isEmpty || !to.isEmpty else { return }
                 
-            let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=" + from + "_" + to + "," + to + "_" + from + "&compact=ultra&apiKey=" + (Countries.apiKey ?? "")
+            let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=\(from)_\(to),\(to)_\(from)&compact=ultra&apiKey=\(Countries.apiKey ?? "")"
 
             guard let url = URL(string: apiUrlRate) else {
                 fatalError("error")
@@ -92,6 +92,7 @@ class Countries {
         if let data = data {
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
             if let dictionary = json as? [String: Double] {
+                cachedRate.removeAll()
                 cachedRate = dictionary
                 onResultLoaded(cachedRate)
             }

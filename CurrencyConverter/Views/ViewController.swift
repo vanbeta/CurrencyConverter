@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     }
     
     @objc func enterNumberTo() {
-        
+        self.viewOutputDelegate?.enterToVaue()
     }
 }
 

@@ -21,6 +21,16 @@ class Presenter {
     func calculateRate(rate: Double, value: Double) -> (Double) {
         return value * rate
     }
+    
+    func enterValue(from: String, to: String, value: Double, setValue: @escaping (Double) -> ()) {
+        self.data.getRate(from: from, to: to) { countries in
+            DispatchQueue.main.async {
+                let rate = countries["\(from)_\(to)"] ?? 0
+                let calculateResult: Double = self.calculateRate(rate: rate, value: value)
+                setValue(calculateResult)
+            }
+        }
+    }
 }
 
 extension Presenter: ViewOutputDelegate {
@@ -36,13 +46,20 @@ extension Presenter: ViewOutputDelegate {
         let counries = self.viewInputDelegate?.getCountriesForCurrencyExchange()
         guard !(counries!.from.isEmpty || counries!.to.isEmpty) else { return }
         
-        self.data.getRate(from: counries!.from, to: counries!.to) { countries in
-            DispatchQueue.main.async {
-                let rate = countries[counries!.from + "_" + counries!.to] ?? 0
-                let calculateResult: Double = self.calculateRate(rate: rate, value: Double(self.viewInputDelegate?.getFromValueTextField() ?? "") ?? 0)
-                self.viewInputDelegate?.setToValueTextField(value: calculateResult)
-            }
-        }
+        self.enterValue(from: counries!.from,
+                        to:  counries!.to,
+                        value: Double(self.viewInputDelegate?.getFromValueTextField() ?? "") ?? 0,
+                        setValue: self.viewInputDelegate!.setToValueTextField(value:))
+    }
+    
+    func enterToVaue() {
+        let counries = self.viewInputDelegate?.getCountriesForCurrencyExchange()
+        guard !(counries!.from.isEmpty || counries!.to.isEmpty) else { return }
+        
+        self.enterValue(from: counries!.to,
+                        to: counries!.from,
+                        value: Double(self.viewInputDelegate?.getToValueTextField() ?? "") ?? 0,
+                        setValue: self.viewInputDelegate!.setFromValueTextField)
     }
 }
 
