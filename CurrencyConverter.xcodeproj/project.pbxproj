@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D7B658227BE74820026B16F /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7B658127BE74820026B16F /* Rates.swift */; };
 		7D9297D5279EE4DD00697523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9297D4279EE4DD00697523 /* AppDelegate.swift */; };
 		7D9297D7279EE4DD00697523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9297D6279EE4DD00697523 /* SceneDelegate.swift */; };
 		7D9297D9279EE4DD00697523 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9297D8279EE4DD00697523 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D7B658127BE74820026B16F /* Rates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rates.swift; sourceTree = "<group>"; };
 		7D9297D1279EE4DD00697523 /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D9297D4279EE4DD00697523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D9297D6279EE4DD00697523 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				7DB57D40279FE2F60056414F /* Country.swift */,
+				7D7B658127BE74820026B16F /* Rates.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				7DB57D43279FEDA30056414F /* ViewOutputDelegate.swift in Sources */,
 				7D9297EC279EEAD800697523 /* Presenter.swift in Sources */,
 				7DB57D41279FE2F60056414F /* Country.swift in Sources */,
+				7D7B658227BE74820026B16F /* Rates.swift in Sources */,
 				7D9297D7279EE4DD00697523 /* SceneDelegate.swift in Sources */,
 				7DB57D45279FEEA70056414F /* ViewInputDelegate.swift in Sources */,
 			);

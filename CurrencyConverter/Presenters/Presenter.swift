@@ -12,7 +12,12 @@ class Presenter {
     
     
     weak private var viewInputDelegate: ViewInputDelegate?
-    var data = Countries()
+    var dataCountries = Countries()
+    var dateRates = Rates()
+    
+    static var apiKey: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
+    }
     
     func setViewInputDelegate(viewInputDelegate: ViewInputDelegate?) {
          self.viewInputDelegate = viewInputDelegate
@@ -23,10 +28,11 @@ class Presenter {
     }
     
     func enterValue(from: String, to: String, value: Double, setValue: @escaping (Double) -> ()) {
-        self.data.getRate(from: from, to: to) { countries in
+        self.dateRates.getRate(from: from, to: to) { countries in
             DispatchQueue.main.async {
-                let rate = countries["\(from)_\(to)"] ?? 0
-                let calculateResult: Double = self.calculateRate(rate: rate, value: value)
+                let rate = countries.first { $0.convertCountries == "\(from)_\(to)" }
+            
+                let calculateResult: Double = self.calculateRate(rate: rate?.rate ?? 0, value: value)
                 setValue(calculateResult)
             }
         }
@@ -37,7 +43,7 @@ extension Presenter: ViewOutputDelegate {
     
     
     func getData() {
-        data.getData() { countries in
+        dataCountries.getData() { countries in
             self.viewInputDelegate?.setupData(data: countries)
         }
     }
