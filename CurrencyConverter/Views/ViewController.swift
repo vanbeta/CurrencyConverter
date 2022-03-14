@@ -120,7 +120,7 @@ extension ViewController: ViewInputDelegate {
 
     func setupData(data: ([Country])) {
         self.countryList = data
-        self.countryList.sort(by: {$0.currencyName! < $1.currencyName!}) // !!!
+        self.countryList.sort(by: {$0.currencyName! < $1.currencyName!})
     }
     
     func getCountriesForCurrencyExchange() -> (from: String, to: String) {
@@ -147,6 +147,17 @@ extension ViewController: ViewInputDelegate {
     
     func setToValueTextField(value: Double) {
         self._toValueTextField.text = String(value)
+    }
+    
+    func setDefaultCountries(from: String, to: String) {
+        print("her \(countryList.count)")
+        guard !countryList.isEmpty else { return }
+        
+        let fromDefaultCountry = countryList.first(where: { $0.id == from})
+        fromCountryTextField.text = fromDefaultCountry?.currencyName
+        
+        let toDefaultCountry = countryList.first(where: { $0.id == to})
+        toCountryTextField.text = toDefaultCountry?.currencyName
     }
 }
 

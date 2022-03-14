@@ -31,7 +31,6 @@ class Presenter {
         self.dateRates.getRate(from: from, to: to) { countries in
             DispatchQueue.main.async {
                 let rate = countries.first { $0.convertCountries == "\(from)_\(to)" }
-            
                 let calculateResult: Double = self.calculateRate(rate: rate?.rate ?? 0, value: value)
                 setValue(calculateResult)
             }
@@ -45,6 +44,9 @@ extension Presenter: ViewOutputDelegate {
     func getData() {
         dataCountries.getData() { countries in
             self.viewInputDelegate?.setupData(data: countries)
+        }
+        DispatchQueue.main.async {
+            self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
         }
     }
     

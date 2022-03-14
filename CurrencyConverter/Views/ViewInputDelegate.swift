@@ -17,4 +17,5 @@ protocol ViewInputDelegate: AnyObject {
     func setFromValueTextField(value: Double)
     func getToValueTextField() -> String
     func setToValueTextField(value: Double)
+    func setDefaultCountries(from: String, to: String)
 }
