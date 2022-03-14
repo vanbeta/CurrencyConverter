@@ -44,9 +44,9 @@ extension Presenter: ViewOutputDelegate {
     func getData() {
         dataCountries.getData() { countries in
             self.viewInputDelegate?.setupData(data: countries)
-        }
-        DispatchQueue.main.async {
-            self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
+            DispatchQueue.main.async {
+                self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
+            }
         }
     }
     
