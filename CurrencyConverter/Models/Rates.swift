@@ -11,7 +11,7 @@ struct Rate {
     
     
     var convertCountries: String
-    var rate: Double
+    var rate: Float
 }
 
 class Rates {
@@ -20,7 +20,7 @@ class Rates {
     private var cachedRates: [Rate] = []
     
     func getRate(from: String, to: String, _ onResultLoaded: @escaping (_ countries: [Rate]) -> Void) {
-        if cachedRates.contains(where: { $0.convertCountries == "\(from) _ \(to)" }) {
+        if cachedRates.contains(where: { $0.convertCountries == "\(from)_\(to)" }) {
             onResultLoaded(cachedRates)
         } else {
             guard !from.isEmpty || !to.isEmpty else { return }
@@ -48,7 +48,7 @@ class Rates {
                 cachedRates.removeAll()
                 
                 for value in dictionary {
-                    let rate = Rate(convertCountries: value.key , rate: value.value)
+                    let rate = Rate(convertCountries: value.key , rate: Float(value.value))
                     rates.append(rate)
                 }
                 
@@ -56,5 +56,9 @@ class Rates {
                 onResultLoaded(cachedRates)
             }
         }
+    }
+    
+    func getCurrentRate() -> [Rate] {
+        return cachedRates
     }
 }

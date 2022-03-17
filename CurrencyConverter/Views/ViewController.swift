@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var toCountryTextField: UITextField!
     @IBOutlet weak var _fromValueTextField: UITextField!
     @IBOutlet weak var _toValueTextField: UITextField!
+    @IBOutlet weak var currentRateLabel: UILabel!
     
     private let presenter = Presenter()
     weak private var viewOutputDelegate: ViewOutputDelegate?
@@ -117,7 +118,7 @@ extension ViewController: UIPickerViewDelegate,
 
 extension ViewController: ViewInputDelegate {
 
-
+ 
     func setupData(data: ([Country])) {
         self.countryList = data
         self.countryList.sort(by: {$0.currencyName! < $1.currencyName!})
@@ -137,7 +138,7 @@ extension ViewController: ViewInputDelegate {
         return _fromValueTextField.text ?? ""
     }
     
-    func setFromValueTextField(value: Double) {
+    func setFromValueTextField(value: Float) {
         _fromValueTextField.text = String(value)
     }
     
@@ -145,12 +146,11 @@ extension ViewController: ViewInputDelegate {
         return _toValueTextField.text ?? ""
     }
     
-    func setToValueTextField(value: Double) {
+    func setToValueTextField(value: Float) {
         self._toValueTextField.text = String(value)
     }
     
     func setDefaultCountries(from: String, to: String) {
-        print("her \(countryList.count)")
         guard !countryList.isEmpty else { return }
         
         let fromDefaultCountry = countryList.first(where: { $0.id == from})
@@ -159,5 +159,18 @@ extension ViewController: ViewInputDelegate {
         let toDefaultCountry = countryList.first(where: { $0.id == to})
         toCountryTextField.text = toDefaultCountry?.currencyName
     }
+    
+    func setCurrentRateLabel(text: String) {
+        currentRateLabel.text = text
+    }
+    
+    func getFromCountry() -> String {
+        return self.fromCountryTextField.text ?? ""
+    }
+    
+    func getToCountry() -> String {
+        return self.toCountryTextField.text ?? ""
+    }
+    
 }
 

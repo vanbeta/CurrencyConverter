@@ -16,8 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency Exchange Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZy-hl-efI">
+                                <rect key="frame" x="69.666666666666686" y="128" width="251" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bDl-wq-lyb">
-                                <rect key="frame" x="20" y="216" width="350" height="76"/>
+                                <rect key="frame" x="20" y="204.33333333333334" width="350" height="76.000000000000028"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="q9J-Q2-JsC">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="34"/>
@@ -51,9 +57,9 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency Exchange Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZy-hl-efI">
-                                <rect key="frame" x="69.666666666666686" y="128" width="251" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4U-EB-dkp">
+                                <rect key="frame" x="174.33333333333334" y="168" width="41.333333333333343" height="20.333333333333343"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -63,15 +69,18 @@
                         <constraints>
                             <constraint firstItem="bDl-wq-lyb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ECU-RZ-DtR"/>
                             <constraint firstItem="eZy-hl-efI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hza-HX-xId"/>
+                            <constraint firstItem="bDl-wq-lyb" firstAttribute="top" secondItem="i4U-EB-dkp" secondAttribute="bottom" constant="16" id="RdB-0g-ZxH"/>
                             <constraint firstItem="eZy-hl-efI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="84" id="SKq-x8-lLj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bDl-wq-lyb" secondAttribute="trailing" constant="20" id="SMw-RH-Q4v"/>
-                            <constraint firstItem="bDl-wq-lyb" firstAttribute="top" secondItem="eZy-hl-efI" secondAttribute="bottom" constant="64" id="nCR-2S-UdR"/>
+                            <constraint firstItem="i4U-EB-dkp" firstAttribute="top" secondItem="eZy-hl-efI" secondAttribute="bottom" constant="16" id="SRC-C2-oQS"/>
                             <constraint firstItem="bDl-wq-lyb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vKM-fy-ZCL"/>
+                            <constraint firstItem="i4U-EB-dkp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zr9-Tz-FaT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="_fromValueTextField" destination="D6T-9Q-XSl" id="rGz-9Y-I2H"/>
                         <outlet property="_toValueTextField" destination="kr6-yR-Sax" id="EjH-hx-qid"/>
+                        <outlet property="currentRateLabel" destination="i4U-EB-dkp" id="Qqb-0e-T0N"/>
                         <outlet property="fromCountryTextField" destination="heN-Bo-EGu" id="acv-cu-3ef"/>
                         <outlet property="toCountryTextField" destination="YXe-et-JFo" id="6vW-qp-tOA"/>
                     </connections>
