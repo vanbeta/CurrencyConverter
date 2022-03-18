@@ -94,6 +94,7 @@ extension ViewController: UIPickerViewDelegate,
         if (pickerView == toCountryTextField.inputView) {
             toCountryTextField.text = selectedCountry
         }
+        self.viewOutputDelegate?.chenageCurrentCounries()
     }
     
     func createPickerView(for textField: UITextField) {
@@ -160,8 +161,8 @@ extension ViewController: ViewInputDelegate {
         toCountryTextField.text = toDefaultCountry?.currencyName
     }
     
-    func setCurrentRateLabel(text: String) {
-        currentRateLabel.text = text
+    func setCurrentRateLabel(text: NSAttributedString) {
+        currentRateLabel.attributedText = text
     }
     
     func getFromCountry() -> String {

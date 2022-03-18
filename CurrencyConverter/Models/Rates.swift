@@ -57,8 +57,4 @@ class Rates {
             }
         }
     }
-    
-    func getCurrentRate() -> [Rate] {
-        return cachedRates
-    }
 }

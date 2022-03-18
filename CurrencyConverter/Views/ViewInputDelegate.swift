@@ -18,7 +18,7 @@ protocol ViewInputDelegate: AnyObject {
     func getToValueTextField() -> String
     func setToValueTextField(value: Float)
     func setDefaultCountries(from: String, to: String)
-    func setCurrentRateLabel(text: String)
+    func setCurrentRateLabel(text: NSAttributedString)
     func getFromCountry() -> String
     func getToCountry() -> String
 }

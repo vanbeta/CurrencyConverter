@@ -13,4 +13,5 @@ protocol ViewOutputDelegate: AnyObject {
     func getData()
     func enterFromValue()
     func enterToVaue()
+    func chenageCurrentCounries()
 }

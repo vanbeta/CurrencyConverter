@@ -14,15 +14,7 @@ class Presenter {
     weak private var viewInputDelegate: ViewInputDelegate?
     var dataCountries = Countries()
     var dateRates = Rates()
-    
-    var allCountries: [Country] = []
-    
-    var currentRate: [Rate] = [] {
-        willSet {
-            viewInputDelegate?.setCurrentRateLabel(text: self.viewInputDelegate?.getFromCountry() ?? "")
-        }
-    }
-    
+        
     static var apiKey: String? {
         return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
     }
@@ -41,8 +33,6 @@ class Presenter {
                 let rate = countries.first { $0.convertCountries == "\(from)_\(to)" }
                 let calculateResult: Float = self.calculateRate(rate: rate?.rate ?? 0, value: value)
                 setValue(calculateResult)
-                
-                self.currentRate = self.dateRates.getCurrentRate() // !!!
             }
         }
     }
@@ -60,9 +50,9 @@ extension Presenter: ViewOutputDelegate {
                     self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
                     self.viewInputDelegate?.setFromValueTextField(value: 1)
                     self.enterFromValue()
+                    self.chenageCurrentCounries()
                 }
             }
-            self.allCountries = countries
         }
     }
     
@@ -85,5 +75,27 @@ extension Presenter: ViewOutputDelegate {
                         value: Float(self.viewInputDelegate?.getToValueTextField() ?? "") ?? 0,
                         setValue: self.viewInputDelegate!.setFromValueTextField)
     }
+    
+    func chenageCurrentCounries()  {
+        let _fromCountry = self.viewInputDelegate?.getFromCountry() ?? ""
+        let _toCountry = self.viewInputDelegate?.getToCountry() ?? ""
+        
+        let _from = self.viewInputDelegate?.getCountriesForCurrencyExchange().from
+        let _to = self.viewInputDelegate?.getCountriesForCurrencyExchange().to
+        
+        dateRates.getRate(from: _from ?? "", to: _to ?? "") { countries in
+            let _rate = countries[1].rate
+            let boldText = "\(_rate) \(_toCountry)"
+            let attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 15)]
+            let attributedString = NSMutableAttributedString(string:boldText, attributes:attrs)
+            
+            let normalString = NSMutableAttributedString(string: "1 \(_fromCountry)\n")
+            normalString.append(attributedString)
+            DispatchQueue.main.async {
+                self.viewInputDelegate?.setCurrentRateLabel(text: normalString)
+            }
+        }
+    }
+    
 }
 
