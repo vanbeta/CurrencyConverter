@@ -18,6 +18,7 @@
 		7DB57D41279FE2F60056414F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB57D40279FE2F60056414F /* Country.swift */; };
 		7DB57D43279FEDA30056414F /* ViewOutputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB57D42279FEDA30056414F /* ViewOutputDelegate.swift */; };
 		7DB57D45279FEEA70056414F /* ViewInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB57D44279FEEA70056414F /* ViewInputDelegate.swift */; };
+		7DE9A24627EAED0A000E132C /* LoadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9A24527EAED0A000E132C /* LoadError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		7DB57D40279FE2F60056414F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		7DB57D42279FEDA30056414F /* ViewOutputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOutputDelegate.swift; sourceTree = "<group>"; };
 		7DB57D44279FEEA70056414F /* ViewInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInputDelegate.swift; sourceTree = "<group>"; };
+		7DE9A24527EAED0A000E132C /* LoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				7DB57D40279FE2F60056414F /* Country.swift */,
 				7D7B658127BE74820026B16F /* Rates.swift */,
+				7DE9A24527EAED0A000E132C /* LoadError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE9A24627EAED0A000E132C /* LoadError.swift in Sources */,
 				7D9297D9279EE4DD00697523 /* ViewController.swift in Sources */,
 				7D9297D5279EE4DD00697523 /* AppDelegate.swift in Sources */,
 				7DB57D43279FEDA30056414F /* ViewOutputDelegate.swift in Sources */,

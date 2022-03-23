@@ -27,26 +27,30 @@ class Countries {
     
     private var cachedCountries: [Country] = []
     
-    func getData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
+    func getData(_ onResultLoaded: @escaping (_ countries: [Country]?, DataResult) -> Void) {
         if !cachedCountries.isEmpty {
-            onResultLoaded(cachedCountries)
+            onResultLoaded(cachedCountries, DataResult.success)
         } else {
             loadData(onResultLoaded)
         }
     }
     
-    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]) -> Void) {
-        guard let url = URL(string: apiUrl) else {
-            fatalError("error")
-        }
-        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
-            guard let data = data, error == nil else { fatalError("error") }
-            parseJsonCountry(data, onResultLoaded)
-        }
-        task.resume()
+    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]?, DataResult) -> Void) {
+//        guard let url = URL(string: "apiUrl") else {
+            onResultLoaded(nil, .failure(LoadError.invalidURL))
+//            return
+//        }
+//        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
+//            guard let data = data, error == nil else {
+//                onResultLoaded(nil, .failure(error!))
+//                return
+//            }
+//            parseJsonCountry(data, onResultLoaded)
+//        }
+//        task.resume()
     }
     
-    private func parseJsonCountry(_ data: Data?, _ onResultLoaded: (_ countries: [Country]) -> Void) {
+    private func parseJsonCountry(_ data: Data?, _ onResultLoaded: (_ countries: [Country]?, DataResult) -> Void) {
         if let data = data {
             
             var countries: [Country] = []
@@ -64,8 +68,12 @@ class Countries {
                     }
                 }
             }
+            if countries.isEmpty {
+                onResultLoaded(nil, .failure(LoadError.invalidJSON))
+                return
+            }
             cachedCountries = countries
-            onResultLoaded(countries)
+            onResultLoaded(countries, DataResult.success)
         }
     }
 }

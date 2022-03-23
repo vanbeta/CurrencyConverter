@@ -14,14 +14,14 @@ class Presenter {
     weak private var viewInputDelegate: ViewInputDelegate?
     var dataCountries = Countries()
     var dateRates = Rates()
-        
+    
     static var apiKey: String? {
         return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
     }
     
     func setViewInputDelegate(viewInputDelegate: ViewInputDelegate?) {
-         self.viewInputDelegate = viewInputDelegate
-     }
+        self.viewInputDelegate = viewInputDelegate
+    }
     
     func calculateRate(rate: Float, value: Float) -> (Float) {
         return value * rate
@@ -42,15 +42,19 @@ extension Presenter: ViewOutputDelegate {
     
     
     func getData() {
-        dataCountries.getData() { countries in
-            self.viewInputDelegate?.setupData(data: countries)
-            
-            if !countries.isEmpty {
-                DispatchQueue.main.async {
-                    self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
-                    self.viewInputDelegate?.setFromValueTextField(value: 1)
-                    self.enterFromValue()
-                    self.chenageCurrentCounries()
+        dataCountries.getData() { countries, error  in
+            DispatchQueue.main.async {
+                switch error {
+                case .success:
+                    self.viewInputDelegate?.setupData(data: countries!)
+                    if !countries!.isEmpty {
+                        self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
+                        self.viewInputDelegate?.setFromValueTextField(value: 1)
+                        self.enterFromValue()
+                        self.chenageCurrentCounries()
+                    }
+                case .failure(let error):
+                    self.viewInputDelegate?.showAlert(with: "Ошибка", and: error.localizedDescription)
                 }
             }
         }
@@ -69,7 +73,7 @@ extension Presenter: ViewOutputDelegate {
     func enterToVaue() {
         let counries = self.viewInputDelegate?.getCountriesForCurrencyExchange()
         guard !(counries!.from.isEmpty || counries!.to.isEmpty) else { return }
-
+        
         self.enterValue(from: counries!.to,
                         to: counries!.from,
                         value: Float(self.viewInputDelegate?.getToValueTextField() ?? "") ?? 0,

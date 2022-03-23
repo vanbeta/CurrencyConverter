@@ -21,4 +21,5 @@ protocol ViewInputDelegate: AnyObject {
     func setCurrentRateLabel(text: NSAttributedString)
     func getFromCountry() -> String
     func getToCountry() -> String
+    func showAlert(with title: String, and message: String)
 }

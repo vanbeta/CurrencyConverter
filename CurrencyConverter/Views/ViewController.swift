@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         presenter.setViewInputDelegate(viewInputDelegate: self)
         self.viewOutputDelegate = presenter
         
@@ -71,7 +72,7 @@ extension ViewController: UITextFieldDelegate {
 
 extension ViewController: UIPickerViewDelegate,
                           UIPickerViewDataSource {
-   
+    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -118,8 +119,8 @@ extension ViewController: UIPickerViewDelegate,
 }
 
 extension ViewController: ViewInputDelegate {
-
- 
+    
+    
     func setupData(data: ([Country])) {
         self.countryList = data
         self.countryList.sort(by: {$0.currencyName! < $1.currencyName!})
@@ -173,5 +174,11 @@ extension ViewController: ViewInputDelegate {
         return self.toCountryTextField.text ?? ""
     }
     
+    func showAlert(with title: String, and message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
