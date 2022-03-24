@@ -28,11 +28,19 @@ class Presenter {
     }
     
     func enterValue(from: String, to: String, value: Float, setValue: @escaping (Float) -> ()) {
-        self.dateRates.getRate(from: from, to: to) { countries in
+        self.dateRates.getRate(from: from, to: to) { countries, errorResult  in
             DispatchQueue.main.async {
-                let rate = countries.first { $0.convertCountries == "\(from)_\(to)" }
-                let calculateResult: Float = self.calculateRate(rate: rate?.rate ?? 0, value: value)
-                setValue(calculateResult)
+                switch errorResult {
+                case .success:
+                    if countries != nil {
+                        let rate = countries!.first { $0.convertCountries == "\(from)_\(to)" }
+                        let calculateResult: Float = self.calculateRate(rate: rate?.rate ?? 0, value: value)
+                        setValue(calculateResult)
+                    }
+                case .failure(let error):
+                    self.viewInputDelegate?.showAlert(with: "Ошибка", and: error.localizedDescription)
+                }
+                
             }
         }
     }
@@ -47,12 +55,10 @@ extension Presenter: ViewOutputDelegate {
                 switch error {
                 case .success:
                     self.viewInputDelegate?.setupData(data: countries!)
-                    if !countries!.isEmpty {
-                        self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
-                        self.viewInputDelegate?.setFromValueTextField(value: 1)
-                        self.enterFromValue()
-                        self.chenageCurrentCounries()
-                    }
+                    self.viewInputDelegate?.setDefaultCountries(from: "RUB", to: "USD")
+                    self.viewInputDelegate?.setFromValueTextField(value: 1)
+                    self.enterFromValue()
+                    self.chenageCurrentCounries()
                 case .failure(let error):
                     self.viewInputDelegate?.showAlert(with: "Ошибка", and: error.localizedDescription)
                 }
@@ -87,16 +93,21 @@ extension Presenter: ViewOutputDelegate {
         let _from = self.viewInputDelegate?.getCountriesForCurrencyExchange().from
         let _to = self.viewInputDelegate?.getCountriesForCurrencyExchange().to
         
-        dateRates.getRate(from: _from ?? "", to: _to ?? "") { countries in
-            let _rate = countries[1].rate
-            let boldText = "\(_rate) \(_toCountry)"
-            let attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 15)]
-            let attributedString = NSMutableAttributedString(string:boldText, attributes:attrs)
-            
-            let normalString = NSMutableAttributedString(string: "1 \(_fromCountry)\n")
-            normalString.append(attributedString)
-            DispatchQueue.main.async {
-                self.viewInputDelegate?.setCurrentRateLabel(text: normalString)
+        dateRates.getRate(from: _from ?? "", to: _to ?? "") { countries, errorResult  in
+            switch errorResult {
+            case .success:
+                let _rate = countries![1].rate
+                let boldText = "\(_rate) \(_toCountry)"
+                let attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 15)]
+                let attributedString = NSMutableAttributedString(string:boldText, attributes:attrs)
+                
+                let normalString = NSMutableAttributedString(string: "1 \(_fromCountry)\n")
+                normalString.append(attributedString)
+                DispatchQueue.main.async {
+                    self.viewInputDelegate?.setCurrentRateLabel(text: normalString)
+                }
+            case .failure(let error):
+                self.viewInputDelegate?.showAlert(with: "Ошибка", and: error.localizedDescription)
             }
         }
     }

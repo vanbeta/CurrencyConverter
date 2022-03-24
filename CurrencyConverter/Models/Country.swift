@@ -27,30 +27,30 @@ class Countries {
     
     private var cachedCountries: [Country] = []
     
-    func getData(_ onResultLoaded: @escaping (_ countries: [Country]?, DataResult) -> Void) {
+    func getData(_ onResultLoaded: @escaping (_ countries: [Country]?, ErrorResult) -> Void) {
         if !cachedCountries.isEmpty {
-            onResultLoaded(cachedCountries, DataResult.success)
+            onResultLoaded(cachedCountries, ErrorResult.success)
         } else {
             loadData(onResultLoaded)
         }
     }
     
-    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]?, DataResult) -> Void) {
-//        guard let url = URL(string: "apiUrl") else {
-            onResultLoaded(nil, .failure(LoadError.invalidURL))
-//            return
-//        }
-//        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
-//            guard let data = data, error == nil else {
-//                onResultLoaded(nil, .failure(error!))
-//                return
-//            }
-//            parseJsonCountry(data, onResultLoaded)
-//        }
-//        task.resume()
+    private func loadData(_ onResultLoaded: @escaping (_ countries: [Country]?, ErrorResult) -> Void) {
+        guard let url = URL(string: apiUrl) else {
+            onResultLoaded(nil, .failure(LoadError.emptyURL))
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
+            guard let data = data, error == nil else {
+                onResultLoaded(nil, .failure(error!))
+                return
+            }
+            parseJsonCountry(data, onResultLoaded)
+        }
+        task.resume()
     }
     
-    private func parseJsonCountry(_ data: Data?, _ onResultLoaded: (_ countries: [Country]?, DataResult) -> Void) {
+    private func parseJsonCountry(_ data: Data?, _ onResultLoaded: (_ countries: [Country]?, ErrorResult) -> Void) {
         if let data = data {
             
             var countries: [Country] = []
@@ -73,7 +73,7 @@ class Countries {
                 return
             }
             cachedCountries = countries
-            onResultLoaded(countries, DataResult.success)
+            onResultLoaded(countries, ErrorResult.success)
         }
     }
 }

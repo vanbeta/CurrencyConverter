@@ -19,27 +19,31 @@ class Rates {
     
     private var cachedRates: [Rate] = []
     
-    func getRate(from: String, to: String, _ onResultLoaded: @escaping (_ countries: [Rate]) -> Void) {
+    func getRate(from: String, to: String, _ onResultLoaded: @escaping (_ countries: [Rate]?, ErrorResult) -> Void) {
         if cachedRates.contains(where: { $0.convertCountries == "\(from)_\(to)" }) {
-            onResultLoaded(cachedRates)
+            onResultLoaded(cachedRates, ErrorResult.success)
         } else {
             guard !from.isEmpty || !to.isEmpty else { return }
             
             let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=\(from)_\(to),\(to)_\(from)&compact=ultra&apiKey=\(Countries.apiKey ?? "")"
             
             guard let url = URL(string: apiUrlRate) else {
-                fatalError("error")
+                onResultLoaded(nil, ErrorResult.failure(LoadError.emptyURL))
+                return
             }
             
             let task = URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
-                guard let data = data, error == nil else { fatalError("error") }
+                guard let data = data, error == nil else {
+                    onResultLoaded(nil,  ErrorResult.failure(error!))
+                    return
+                }
                 parseJsonRate(data, onResultLoaded)
             }
             task.resume()
         }
     }
     
-    func parseJsonRate(_ data: Data?, _ onResultLoaded: @escaping (_ countries: [Rate]) -> Void) {
+    func parseJsonRate(_ data: Data?, _ onResultLoaded: @escaping (_ countries: [Rate]?, ErrorResult) -> Void) {
         if let data = data {
             let json = try? JSONSerialization.jsonObject(with: data, options: [])
             if let dictionary = json as? [String: Double] {
@@ -53,8 +57,11 @@ class Rates {
                 }
                 
                 cachedRates = rates
-                onResultLoaded(cachedRates)
+                onResultLoaded(cachedRates, ErrorResult.success)
+            } else {
+                onResultLoaded(nil, ErrorResult.failure(LoadError.invalidJSON))
             }
         }
     }
+    
 }

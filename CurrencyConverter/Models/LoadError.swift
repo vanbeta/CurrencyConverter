@@ -7,24 +7,27 @@
 
 import Foundation
 
-enum DataResult {
+enum ErrorResult {
     case success
     case failure(Error)
 }
 
 enum LoadError {
-    case invalidURL
+    case emptyURL
     case invalidJSON
+    case emptyData
     case unknownError
 }
 
 extension LoadError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        case .invalidURL:
-            return NSLocalizedString("Не правильный URL", comment: "")
+        case .emptyURL:
+            return NSLocalizedString("Пустой URL", comment: "")
         case .invalidJSON:
             return NSLocalizedString("Не удалось распарсить JSON", comment: "")
+        case .emptyData:
+            return NSLocalizedString("Не удалось загрузить данные", comment: "")
         case .unknownError:
             return NSLocalizedString("Неизвестная ошибка", comment: "")
         }
