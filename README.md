@@ -2,4 +2,4 @@
 
 ##### About
 
-Конвектор валютю. Написанный на MVP. Использую API - [currconv](https://currconv.com/)
+Конвектор валют. Данный проект написан с использованием архитектуры MVP. Использует API - [currconv](https://currconv.com/)
