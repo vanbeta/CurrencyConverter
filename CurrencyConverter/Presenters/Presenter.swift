@@ -16,7 +16,21 @@ class Presenter {
     var dateRates = Rates()
     
     static var apiKey: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
+        var config: [String: Any]?
+                
+        if let infoPlistPath = Bundle.main.url(forResource: "key", withExtension: "plist") {
+            do {
+                let infoPlistData = try Data(contentsOf: infoPlistPath)
+                
+                if let dict = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any] {
+                    config = dict
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return config?["apiKey"] as? String
     }
     
     func setViewInputDelegate(viewInputDelegate: ViewInputDelegate?) {
@@ -96,7 +110,7 @@ extension Presenter: ViewOutputDelegate {
         dateRates.getRate(from: _from ?? "", to: _to ?? "") { countries, errorResult  in
             switch errorResult {
             case .success:
-                let _rate = countries![1].rate
+                let _rate = countries![countries!.count-1].rate
                 let boldText = "\(_rate) \(_toCountry)"
                 let attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 15)]
                 let attributedString = NSMutableAttributedString(string:boldText, attributes:attrs)
@@ -106,6 +120,7 @@ extension Presenter: ViewOutputDelegate {
                 DispatchQueue.main.async {
                     self.viewInputDelegate?.setCurrentRateLabel(text: normalString)
                 }
+                self.enterFromValue()
             case .failure(let error):
                 self.viewInputDelegate?.showAlert(with: "Ошибка", and: error.localizedDescription)
             }

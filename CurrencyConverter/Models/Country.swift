@@ -19,11 +19,7 @@ struct Country {
 class Countries {
     
     
-    static var apiKey: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "apiKey") as? String
-    }
-    
-    private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=\(apiKey ?? "")"
+    private let apiUrl = "https://free.currconv.com/api/v7/currencies?apiKey=\(Presenter.apiKey ?? "")"
     
     private var cachedCountries: [Country] = []
     

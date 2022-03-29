@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D5F7E5727F2FF7E00E50020 /* key.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D5F7E5627F2FF7E00E50020 /* key.plist */; };
 		7D7B658227BE74820026B16F /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7B658127BE74820026B16F /* Rates.swift */; };
 		7D9297D5279EE4DD00697523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9297D4279EE4DD00697523 /* AppDelegate.swift */; };
 		7D9297D7279EE4DD00697523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9297D6279EE4DD00697523 /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D5F7E5627F2FF7E00E50020 /* key.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = key.plist; sourceTree = "<group>"; };
 		7D7B658127BE74820026B16F /* Rates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rates.swift; sourceTree = "<group>"; };
 		7D9297D1279EE4DD00697523 /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D9297D4279EE4DD00697523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				7D9297DA279EE4DD00697523 /* Main.storyboard */,
 				7D9297DD279EE4E000697523 /* Assets.xcassets */,
 				7D9297DF279EE4E000697523 /* LaunchScreen.storyboard */,
+				7D5F7E5627F2FF7E00E50020 /* key.plist */,
 				7D9297E2279EE4E000697523 /* Info.plist */,
 			);
 			path = CurrencyConverter;
@@ -167,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D5F7E5727F2FF7E00E50020 /* key.plist in Resources */,
 				7D9297E1279EE4E000697523 /* LaunchScreen.storyboard in Resources */,
 				7D9297DE279EE4E000697523 /* Assets.xcassets in Resources */,
 				7D9297DC279EE4DD00697523 /* Main.storyboard in Resources */,

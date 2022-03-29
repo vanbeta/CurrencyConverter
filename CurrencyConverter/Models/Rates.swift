@@ -25,7 +25,7 @@ class Rates {
         } else {
             guard !from.isEmpty || !to.isEmpty else { return }
             
-            let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=\(from)_\(to),\(to)_\(from)&compact=ultra&apiKey=\(Countries.apiKey ?? "")"
+            let apiUrlRate = "https://free.currconv.com/api/v7/convert?q=\(from)_\(to),\(to)_\(from)&compact=ultra&apiKey=\(Presenter.apiKey ?? "")"
             
             guard let url = URL(string: apiUrlRate) else {
                 onResultLoaded(nil, ErrorResult.failure(LoadError.emptyURL))
